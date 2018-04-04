@@ -1,3 +1,5 @@
+from math import tan
+
 class LineDictionary:
     def __init__(self):
         self.lines = {}
@@ -66,3 +68,24 @@ class LineDictionary:
         lines[168.75] = [3,0,5,8]
         self.lines[9] = lines
         return
+    
+    def OddLines(self,dim,s_angle):
+        half = int(dim/2) 
+
+        if angle < 45.0:
+            height = half*tan(angle/180.0)
+            lines = [half+height, 0, half-height, int(dim-1)]#int
+        elif angle < 90.0:
+            width = half/tan(angle/180.0)
+            lines = [int(dim-1), half-width, 0, half+width]#int
+        elif angle == 90.0:
+            lines = [int(dim-1), half, 0, half]
+        elif angle < 135.0:
+            width = -half*tan(angle/180.0)
+            lines = [0, half-width, int(dim-1), half+width]#int
+        elif angle < 180.0:
+            height = -half/tan(angle/180.0)
+            lines = [half-height, 0, half+height, int(dim-1)]#int
+        
+        return lines
+        

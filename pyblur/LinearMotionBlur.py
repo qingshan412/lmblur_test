@@ -53,8 +53,10 @@ def LineKernel(dim, angle, linetype):
 def SanitizeAngleValue(kernelCenter, angle):
     numDistinctLines = kernelCenter * 4
     angle = math.fmod(angle, 180.0)
-    validLineAngles = np.linspace(0,180, numDistinctLines, endpoint = False)
-    angle = nearestValue(angle, validLineAngles)
+    if angle < 0:
+        angle = 180.0 - angle
+    # validLineAngles = np.linspace(0,180, numDistinctLines, endpoint = False)
+    # angle = nearestValue(angle, validLineAngles)
     return angle
 
 def nearestValue(theta, validAngles):
