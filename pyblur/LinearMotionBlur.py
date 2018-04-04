@@ -7,18 +7,19 @@ from skimage.draw import line
 
 from LineDictionary import LineDictionary
 
-lineLengths =[3,5,7,9]
+lineLengths={3,5,7,9}
+# lineLengths =[3,5,7,9]
 lineTypes = ["full", "right", "left"]
 
 lineDict = LineDictionary()
 
-def LinearMotionBlur_random(img):
-    lineLengthIdx = np.random.randint(0, len(lineLengths))
-    lineTypeIdx = np.random.randint(0, len(lineTypes)) 
-    lineLength = lineLengths[lineLengthIdx]
-    lineType = lineTypes[lineTypeIdx]
-    lineAngle = randomAngle(lineLength)
-    return LinearMotionBlur(img, lineLength, lineAngle, lineType)
+# def LinearMotionBlur_random(img):
+#     lineLengthIdx = np.random.randint(0, len(lineLengths))
+#     lineTypeIdx = np.random.randint(0, len(lineTypes)) 
+#     lineLength = lineLengths[lineLengthIdx]
+#     lineType = lineTypes[lineTypeIdx]
+#     lineAngle = randomAngle(lineLength)
+#     return LinearMotionBlur(img, lineLength, lineAngle, lineType)
 
 def LinearMotionBlur(img, dim, angle, linetype):
     imgarray = np.array(img, dtype="float32")
@@ -30,9 +31,13 @@ def LinearMotionBlur(img, dim, angle, linetype):
 def LineKernel(dim, angle, linetype):
     kernelwidth = dim
     kernelCenter = int(math.floor(dim/2))
-    angle = SanitizeAngleValue(kernelCenter, angle)
-    kernel = np.zeros((kernelwidth, kernelwidth), dtype=np.float32)
-    lineAnchors = lineDict.lines[dim][angle]
+    if dim in lineLengths:
+        angle = SanitizeAngleValue(kernelCenter, angle)
+        kernel = np.zeros((kernelwidth, kernelwidth), dtype=np.float32)
+        lineAnchors = lineDict.lines[dim][angle]
+    else:
+        lineAnchors = [int(dim/2),0,int(dim/2),int(dim-1)]
+        # starting point -> end point
     if(linetype == 'right'):
         lineAnchors[0] = kernelCenter
         lineAnchors[1] = kernelCenter

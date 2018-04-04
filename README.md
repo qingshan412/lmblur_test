@@ -1,6 +1,7 @@
 # Test of linear motion blurring with different settings
 
-Based on Pyblur, a Python image blurring routines. Details can be found [here](https://github.com/lospooky/pyblur) 
+Based on Pyblur, a Python image blurring routines. Details can be found [here](https://github.com/lospooky/pyblur)
+install_requires: 'numpy', 'pillow', 'scikit-image', 'scipy'. 
 
 ### Linear Motion Blur
 Blurs image using a Line Kernel
