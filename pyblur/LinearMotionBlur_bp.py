@@ -31,22 +31,27 @@ def LinearMotionBlur(img, dim, angle, linetype):
 def LineKernel(dim, angle, linetype):
     kernelwidth = dim
     kernelCenter = int(math.floor(dim/2))
-    kernel = np.ones((kernelwidth, kernelwidth), dtype=np.float32)
-    # if dim in lineLengths:
-    #     angle = SanitizeAngleValue(kernelCenter, angle)
-    #     lineAnchors = lineDict.lines[dim][angle]
-    # else:
-    #     lineAnchors = [kernelCenter,0,kernelCenter,int(dim-1)]
-    #     # starting point -> end point
+    kernel = np.zeros((kernelwidth, kernelwidth), dtype=np.float32)
+    if dim in lineLengths:
+        angle = SanitizeAngleValue(kernelCenter, angle)
+        lineAnchors = lineDict.lines[dim][angle]
+    else:
+        lineAnchors = [int(dim/2),0,int(dim/2),int(dim-1)]
+        # starting point -> end point
     if(linetype == 'right'):
         lineAnchors[0] = kernelCenter
         lineAnchors[1] = kernelCenter
     if(linetype == 'left'):
         lineAnchors[2] = kernelCenter
         lineAnchors[3] = kernelCenter
-    
-    #for i in range(dim):
-        
+    half = int(dim/2)
+    for i in range(half):
+        rr,cc = line(lineAnchors[0]-half+i, lineAnchors[1], lineAnchors[2]-half+i, lineAnchors[3])
+        kernel[rr,cc]=1
+#     rr,cc = line(lineAnchors[0]-1, lineAnchors[1], lineAnchors[2]-1, lineAnchors[3])
+#     kernel[rr,cc]=1
+#     rr,cc = line(lineAnchors[0]+1, lineAnchors[1], lineAnchors[2]+1, lineAnchors[3])
+#     kernel[rr,cc]=1
     normalizationFactor = np.count_nonzero(kernel)
     kernel = kernel / normalizationFactor        
     return kernel
