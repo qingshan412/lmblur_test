@@ -46,6 +46,10 @@ def LineKernel(dim, angle, linetype):
         lineAnchors[3] = kernelCenter
     rr,cc = line(lineAnchors[0], lineAnchors[1], lineAnchors[2], lineAnchors[3])
     kernel[rr,cc]=1
+    rr,cc = line(lineAnchors[0]-1, lineAnchors[1], lineAnchors[2]-1, lineAnchors[3])
+    kernel[rr,cc]=1
+    rr,cc = line(lineAnchors[0]+1, lineAnchors[1], lineAnchors[2]+1, lineAnchors[3])
+    kernel[rr,cc]=1
     normalizationFactor = np.count_nonzero(kernel)
     kernel = kernel / normalizationFactor        
     return kernel
