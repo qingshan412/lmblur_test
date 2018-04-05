@@ -33,9 +33,9 @@ def EEKernel(dim, center_value):
     kernelCenter = int(math.floor(dim/2))
     kernel = -np.ones((kernelwidth, kernelwidth), dtype=np.float32)
     kernel[kernelCenter, kernelCenter] = center_value
-        
-    # normalizationFactor = np.count_nonzero(kernel)
-    # kernel = kernel / normalizationFactor        
+    
+    normalizationFactor = max(0,center_value-9)
+    kernel = kernel / normalizationFactor        
     return kernel
 
 
