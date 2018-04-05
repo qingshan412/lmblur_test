@@ -31,7 +31,7 @@ def LinearMotionBlur(img, dim, angle, linetype):
 def LineKernel(dim, angle, linetype):
     kernelwidth = dim
     kernelCenter = int(math.floor(dim/2))
-    kernel = np.ones((kernelwidth, kernelwidth), dtype=np.float32)
+    kernel = np.zeros((kernelwidth, kernelwidth), dtype=np.float32)
     # if dim in lineLengths:
     #     angle = SanitizeAngleValue(kernelCenter, angle)
     #     lineAnchors = lineDict.lines[dim][angle]
@@ -45,7 +45,14 @@ def LineKernel(dim, angle, linetype):
         lineAnchors[2] = kernelCenter
         lineAnchors[3] = kernelCenter
     
-    #for i in range(dim):
+    for i in range(dim):
+        if i < kernelCenter:
+            l = 2*i+1
+        else:
+            l = dim - 2*(i-kernelCenter)          
+        start = int((dim - l)/2)
+        for j in range(l):
+            kernel[i,start+j] = 1
         
     normalizationFactor = np.count_nonzero(kernel)
     kernel = kernel / normalizationFactor        
