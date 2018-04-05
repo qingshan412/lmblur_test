@@ -8,3 +8,16 @@ from LinearMotionBlur import *
 
 imgL = Image.open('../../BluredImages/orig.png').convert('L')
 blurred = LinearMotionBlur(imgL, 11, 179, 'full')
+# >>> b = LinearMotionBlur(imgL, 51, 179, 'full')
+# >>> b.show()
+# >>> ee = b.filter(EDGE_ENHANCE)
+# >>> ee.show()
+# >>> ee2 = ee.filter(EDGE_ENHANCE)
+# >>> ee2.show()
+# >>> ee3 = ee2.filter(EDGE_ENHANCE)
+# >>> ee3.show()
+# >>> b.show()
+# >>> ee.show()
+# >>> ee2.show()
+# >>> ee3.show()
+

@@ -21,6 +21,24 @@ lineDict = LineDictionary()
 #     lineAngle = randomAngle(lineLength)
 #     return LinearMotionBlur(img, lineLength, lineAngle, lineType)
 
+def EdgeEnhance(img, dim, center_value):
+    imgarray = np.array(img, dtype="float32")
+    kernel = EEKernel(dim, center_value)
+    convolved = convolve2d(imgarray, kernel, mode='same', fillvalue=255.0).astype("uint8")
+    img = Image.fromarray(convolved)
+    return img
+
+def EEKernel(dim, center_value):
+    kernelwidth = dim
+    kernelCenter = int(math.floor(dim/2))
+    kernel = -np.ones((kernelwidth, kernelwidth), dtype=np.float32)
+    kernel[kernelCenter, kernelCenter] = center_value
+        
+    # normalizationFactor = np.count_nonzero(kernel)
+    # kernel = kernel / normalizationFactor        
+    return kernel
+
+
 def LinearMotionBlur(img, dim, angle, linetype):
     imgarray = np.array(img, dtype="float32")
     kernel = LineKernel(dim, angle, linetype)
