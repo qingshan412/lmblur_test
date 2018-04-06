@@ -29,7 +29,7 @@ def DirectMove(img, dim):
     new_im_np[0:640-half,:] = img_np[0:640-half,:]
     new_im_np[half:640,:] += img_np[half:640,:]
     new_im_np[new_im_np > 255] = 255
-    new_im = Image.fromarray(new_im_np)
+    new_img = Image.fromarray(new_im_np)
 
     return new_img
 
