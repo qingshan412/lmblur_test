@@ -21,6 +21,18 @@ lineDict = LineDictionary()
 #     lineAngle = randomAngle(lineLength)
 #     return LinearMotionBlur(img, lineLength, lineAngle, lineType)
 
+def DirectMove(img, dim):
+    img_np = np.array(img)#hxw
+    half = int(dim/2)
+    im_t1 = img_np[half:640,:]
+    new_im_np = np.zeros(img_np.shape)
+    new_im_np[0:640-half,:] = img_np[0:640-half,:]
+    new_im_np[half:640,:] += img_np[half:640,:]
+    new_im_np[new_im_np > 255] = 255
+    new_im = Image.fromarray(new_im_np)
+
+    return new_img
+
 def EdgeEnhance(img, dim, center_value):
     imgarray = np.array(img, dtype="float32")
     kernel = EEKernel(dim, center_value)
