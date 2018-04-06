@@ -25,11 +25,11 @@ def DirectMove(img, dim):
     img_np = np.array(img)#hxw
     half = int(dim/2)
     # im_t1 = img_np[half:640,:]
-    new_im_np = np.zeros(img_np.shape,dtype="int32")
-    new_im_np[:,0:640-half] = img_np[:,0:640-half]
-    new_im_np[:,half:640] += img_np[:,half:640]
+    new_im_np = np.zeros(img_np.shape,dtype="uint8")
+    new_im_np[:,0:640-half] = img_np[:,0:640-half]*0.5
+    new_im_np[:,half:640] += img_np[:,half:640]*0.5
     #new_im_np[new_im_np > 255] = 255
-    new_img = Image.fromarray(new_im_np)
+    new_img = Image.fromarray(new_im_np,dtype="uint8")
 
     return new_img
 
