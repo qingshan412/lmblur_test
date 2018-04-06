@@ -24,11 +24,11 @@ lineDict = LineDictionary()
 def DirectMove(img, dim):
     img_np = np.array(img)#hxw
     half = int(dim/2)
-    im_t1 = img_np[half:640,:]
+    # im_t1 = img_np[half:640,:]
     new_im_np = np.zeros(img_np.shape)
     new_im_np[0:640-half,:] = img_np[0:640-half,:]
     new_im_np[half:640,:] += img_np[half:640,:]
-    new_im_np[new_im_np > 255] = 255
+    #new_im_np[new_im_np > 255] = 255
     new_img = Image.fromarray(new_im_np)
 
     return new_img
